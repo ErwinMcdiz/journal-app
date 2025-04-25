@@ -1,0 +1,38 @@
+<%= form_with model: [@category, @task], local: true do |form| %>
+  <% if @task.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>There were some problems with your submission:</h4>
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.text_area :content, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :due_date, "Due Date" %>
+    <%= form.date_select :due_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :mood %>
+    <%= form.text_field :mood, class: "form-control" %>
+  </div>
+
+  <%= form.hidden_field :category_id, value: @category.id %>
+
+  <div class="form-group mt-3">
+    <%= form.submit "Create Task", class: "btn btn-primary" %>
+  </div>
+<% end %>

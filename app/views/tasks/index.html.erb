@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%= "All tasks" %></h2>
+  </div>
+  <div class="card-body">
+    <% @tasks.each do |task| %>
+    <blockquote class="blockquote mb-0">
+    <p>
+    <strong><%= task.title %></strong><br>
+    <%= task.content %><br>
+    <em>Due on: <%= task.due_date %></em>
+  </p>
+
+  <%= form_with url: complete_task_path(task), method: :patch, local: true do %>
+    <%= check_box_tag 'completed', true, task.completed, onchange: 'this.form.submit();' %>
+    <%= task.title %>
+  <% end %>
+  
+  
+  <% if task.content.present? %>
+  <ul class="mb-2 h6">
+    <% task.content.split("\n").each do |line| %>
+      <li><%= line.strip %></li>
+    <% end %>
+  </ul>
+<% end %>
+      <div>
+        <%= link_to "Show", category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
+        <%= link_to "Update", edit_category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
+        <%= link_to "Delete", category_task_path(@category, task), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"btn btn-danger btn-sm" %>
+      </div>
+      <br><br>
+      <% end %>
+    </blockquote>
+  </div>
+</div>
+<br><br>
+<%= link_to "Back", @category, class: "btn btn-secondary" %>

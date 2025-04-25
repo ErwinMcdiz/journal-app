@@ -1,0 +1,18 @@
+<h1>Show task</h1>
+<br>
+<div class="jumbotron">
+  <h1 class="display-4">
+  <%= @task.content %>
+
+  </h1>
+  <% if @task.content.present? %>
+
+  <ul class="lead">
+  <% @task.content.split("\n").each do |line| %>
+
+      <li><%= line.strip %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<%= link_to "Back", category_tasks_path(@category), class: "btn btn-secondary" %>
