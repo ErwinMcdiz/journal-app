@@ -55,3 +55,45 @@
   .login-container .actions input:hover {
     background-color: #0056b3;
   }
+
+  .task-card {
+  background-color: #3b4252;
+  border: 1px solid #434c5e;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.task-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #eceff4;
+}
+
+.task-content {
+  margin-top: 8px;
+  color: #d8dee9;
+  line-height: 1.4;
+}
+
+.task-meta {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #a3be8c; /* muted green for completed or due */
+}
+
+.task-completed {
+  color: #a3be8c;
+  font-weight: bold;
+}
+
+.task-due {
+  color: #88c0d0;
+}

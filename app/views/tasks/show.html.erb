@@ -1,18 +1,18 @@
-<h1>Show task</h1>
+<h1>Show Task</h1>
 <br>
+
 <div class="jumbotron">
-  <h1 class="display-4">
-  <%= @task.content %>
+  <h1 class="display-4"><%= @task.title %></h1>
 
-  </h1>
   <% if @task.content.present? %>
-
-  <ul class="lead">
-  <% @task.content.split("\n").each do |line| %>
-
-      <li><%= line.strip %></li>
-    <% end %>
-  </ul>
+    <hr>
+    <p class="lead">
+      <strong>Description:</strong>
+      <%= simple_format(@task.content) %>
+    </p>
+  <% else %>
+    <p class="lead text-muted">No additional description provided.</p>
   <% end %>
 </div>
-<%= link_to "Back", category_tasks_path(@category), class: "btn btn-secondary" %>
+
+<%= link_to "Back", category_tasks_path(@task.category), class: "btn btn-secondary" %>

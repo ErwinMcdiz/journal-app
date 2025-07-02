@@ -1,3 +1,4 @@
 one:
   email: erwin@email.com
-  encrypted_password: Erlobless
+  password: "Erlobless"
+  password_confirmation: "Erlobless"

@@ -4,14 +4,9 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @user = users(:one)
+    @user = users(:one) # Assuming you have a fixture for users
     sign_in @user
-
-    @category = Category.create!(
-      title: "Sample category title",
-      body: "Sample category body",
-      user: @user
-    )
+    @category = Category.create!(title: "Category 1", body: "Sample Body", user: @user)
   end
 
   test "should get index" do

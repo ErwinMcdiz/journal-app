@@ -1,38 +1,45 @@
-<div class="card">
+<div class="card mb-4">
   <div class="card-header">
-    <h2><%= "All tasks" %></h2>
+    <h2>All Tasks</h2>
   </div>
-  <div class="card-body">
-    <% @tasks.each do |task| %>
-    <blockquote class="blockquote mb-0">
-    <p>
-    <strong><%= task.title %></strong><br>
-    <%= task.content %><br>
-    <em>Due on: <%= task.due_date %></em>
-  </p>
 
-  <%= form_with url: complete_task_path(task), method: :patch, local: true do %>
-    <%= check_box_tag 'completed', true, task.completed, onchange: 'this.form.submit();' %>
-    <%= task.title %>
-  <% end %>
-  
-  
-  <% if task.content.present? %>
-  <ul class="mb-2 h6">
-    <% task.content.split("\n").each do |line| %>
-      <li><%= line.strip %></li>
-    <% end %>
-  </ul>
-<% end %>
-      <div>
-        <%= link_to "Show", category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
-        <%= link_to "Update", edit_category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
-        <%= link_to "Delete", category_task_path(@category, task), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"btn btn-danger btn-sm" %>
-      </div>
-      <br><br>
+  <div class="card-body">
+    <% if @tasks.any? %>
+      <% @tasks.each do |task| %>
+        <div class="task-card mb-3">
+          <!-- Checkbox + Title -->
+          <div class="task-meta mb-2">
+            <%= form_with url: complete_task_path(task), method: :patch, local: true do %>
+              <%= check_box_tag 'completed', '1', task.completed, onchange: 'this.form.submit();' %>
+              <span class="task-title ml-2"><%= task.title %></span>
+            <% end %>
+
+          </div>
+
+          <!-- Content / Details -->
+          <% if task.content.present? %>
+            <div class="task-content mb-2">
+              <%= simple_format(task.content) %>
+            </div>
+          <% end %>
+
+          <!-- Due date + Actions -->
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="task-due">Due on: <%= task.due_date.strftime("%B %d, %Y") %></small>
+            <div>
+              <%= link_to "Show",   category_task_path(@category, task), class: "btn btn-primary btn-sm" %>
+              <%= link_to "Edit",   edit_category_task_path(@category, task), class: "btn btn-info btn-sm" %>
+              <%= link_to "Delete", category_task_path(@category, task),
+                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                          class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
       <% end %>
-    </blockquote>
+    <% else %>
+      <p class="text-muted">No tasks found.</p>
+    <% end %>
   </div>
 </div>
-<br><br>
-<%= link_to "Back", @category, class: "btn btn-secondary" %>
+
+<%= link_to "Back to Category", @category, class: "btn btn-secondary" %>

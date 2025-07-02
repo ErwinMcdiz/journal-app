@@ -8,8 +8,10 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = @category.tasks
+  @category = Category.find(params[:category_id])
+  @tasks = @category.tasks.order(:due_date)
   end
+
 
   def show
     @task = Task.find(params[:id])
@@ -17,10 +19,12 @@ class TasksController < ApplicationController
   end
 
   def complete
-    @task = Task.find(params[:id])
-    @task.update(completed: !@task.completed)
-    redirect_back fallback_location: category_tasks_path(@task.category)
-  end
+  @task = Task.find(params[:id])
+  # This sets completed to true or false based on checkbox value
+  @task.update(completed: params[:completed].present?)
+  redirect_back fallback_location: category_tasks_path(@task.category)
+end
+
   
   
 
